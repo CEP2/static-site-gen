@@ -4,7 +4,7 @@ from htmlnode import HTMLNode
 
 
 class TestTextNode(unittest.TestCase):
-    def test_eq(self):
+    def test_props_to_html(self):
         # node = TextNode("This is a text node", TextType.BOLD)
         # node2 = TextNode("This is a text node", TextType.BOLD)
         # self.assertEqual(node, node2)
