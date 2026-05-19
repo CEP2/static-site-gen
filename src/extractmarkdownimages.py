@@ -90,7 +90,7 @@ def split_nodes_link(old_nodes):
                 rest_text = txt_split[1]
                 # [0] is text to be processed...
                 if cur_text != '':
-                    new_subnodes.append(TextNode(m_text,TextType.TEXT))                
+                    new_subnodes.append(TextNode(cur_text,TextType.TEXT))                
                 # process m (current match) into text_type TextNode
                 new_subnodes.append(TextNode(m_text, text_type, url=m_link))
                 # make [1] new text to be split.
