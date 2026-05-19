@@ -34,7 +34,6 @@ class test_split_node_delimiter(unittest.TestCase):
         for node in test_strs:
             old_node = TextNode(node,TextType.TEXT)
             new_nodes = split_nodes_delimiter([old_node],delim,text_type)
-            print(new_nodes)
             num_new = len(new_nodes)
             self.assertEqual(num_new, len(test_strs[node]))
             for n in range(num_new):
@@ -42,7 +41,6 @@ class test_split_node_delimiter(unittest.TestCase):
                 expected = test_strs[node][n] 
                 result   = new_nodes[n]
                 self.assertEqual(expected, result)
-
 
     def test_split_nodes_delimiter_error(self):
         text_type = TextType.CODE
