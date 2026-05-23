@@ -8,7 +8,7 @@ class TestTextToTextNodes(unittest.TestCase):
 
         test_string = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
         new_nodes = text_to_textnodes(test_string)
-        print(new_nodes, sep='\n')
+        # print(new_nodes, sep='\n')
         self.assertListEqual(
             [   
                 TextNode("This is ", TextType.TEXT),
