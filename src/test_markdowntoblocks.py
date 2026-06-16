@@ -65,7 +65,7 @@ This is the same paragraph on a new line
         blocks_to_test = [
                 '''```
 this is a code block.
-                ```''',
+```''',
                 '''```
 this is a code block w/ticks at the end of the line.```''',         
           ]
@@ -93,12 +93,12 @@ this is a code block w/ticks at the end of the line.```''',
     def test_block_to_block_type_quote(self):
         expected = BlockType.QUOTE
         blocks_to_test = [
-            "<one line quote>",
-            "< text with spaces >",
-            "< text with spaces after the closing> ",
-            '''<multi>
-<line>
-<quote>''',
+            "> one line quote",
+            ">text with spaces",
+            ">> doubling up but still valid",
+            '''>multi>
+>line>
+>quote>''',
         ]
         for block in blocks_to_test:
             actual = block_to_block_type(block)

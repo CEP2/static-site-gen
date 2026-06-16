@@ -42,16 +42,16 @@ def is_heading(block):
     return True
 
 def is_code(block):
-    lines = block.split('\n')
+    num_lines = len(block.split('\n'))
     ticks = '```'
-    if lines[0] == ticks and lines[-1][-3:].strip() == ticks:
+    if num_lines > 1 and block.startswith(ticks) and block.endswith(ticks):
         return True
     return False
     
 def is_quote(block):
     lines = block.split('\n')
     for line in lines:
-        if line[0] != '<' or line.strip()[-1] != '>':
+        if not line.startswith(">"):
             return False
     return True
 
