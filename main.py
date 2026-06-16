@@ -7,6 +7,8 @@ def copy_directory(target="static", destination="public"):
     origin = os.path.join(home, target)
     dest = os.path.join(home, destination)
 
+    if not os.path.exists(origin):
+        raise ValueError(f"origin does not exist {origin}")
     #Clean out destination if exists
     if os.path.exists(dest):
         if os.path.isfile(dest):
