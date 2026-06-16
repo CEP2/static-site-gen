@@ -29,12 +29,12 @@ def generate_page(from_path, template_path, dest_path):
                 title_target = "{{ Title }}"
                 output = output.replace(title_target, title)
 
-                content_target = "{{ Content}}"
+                content_target = "{{ Content }}"
                 output = output.replace(content_target, html)
                 # output to destination
                 try:
                     with open(dest_path, "w") as out_file:
-                        pass
+                        out_file.write(output)
                 except Exception as e:
                     print(f"error opening {dest_path}: {e}")
     except Exception as e:
