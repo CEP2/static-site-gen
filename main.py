@@ -26,13 +26,14 @@ def copy_contents(origin, dest):
     contents = os.listdir(origin)
     # iterate through folder contents
     for c in contents:
-        print(f"file check: {c}")
-        if os.path.isfile(c):
-            print(f"{c} is a file")
+        c_path = os.path.join(origin,c)
+        print(f"file check: {c_path}")
+        if os.path.isfile(c_path):
+            print(f"{c_path} is a file")
             #copy to destination
-            shutil.copy(c, os.path.join(dest,c))
+            shutil.copy(c_path, os.path.join(dest,c))
         # if directory
-        elif os.path.isdir(c):
+        elif os.path.isdir(c_path):
             # join dir to dest and origin
             new_origin = os.path.join(origin, os.path.basename(c))
             new_dest = os.path.join(dest, os.path.basename(c))
