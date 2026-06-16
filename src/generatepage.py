@@ -5,16 +5,12 @@ from htmlnode import HTMLNode
 from copy import copy
 
 def extract_title(markdown):
-    md_title = "^# .*$" # regex pattern
-    match = re.match(md_title, markdown)
-    if match is None:
-        raise ValueError(f"no md title present {markdown}")
-    else:
-        title = match[0]
-        if len(title) <= 2:
-            raise ValueError ("no title content")
-    # may need to replace title line with nothing
-    return title[2:].strip()
+    md_title = "# " 
+    lines = markdown.split('\n')
+    for l in lines:
+        if len(l) > 2 and l.startswith(md_title):
+            return l[2:].strip()
+    raise ValueError(f"no md title present {markdown}")
     
 def generate_page(from_path, template_path, dest_path):
     print(f"attempting to generate page...\n\tsource: {from_path}\n\tdest: {dest_path}\n\ttemplate:{template_path}")
