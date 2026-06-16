@@ -4,12 +4,23 @@ from generatepage import extract_title
 class TestGeneratePage(unittest.TestCase):
 
     def test_extract_title(self):
+
+        with open("content/index.md", "r") as f:
+            content = f.read()
+        line_one = content.split('\n')[0]
+        line_one_expected = "Tolkien Fan Club"
+        print(line_one)
+        print(extract_title(line_one))
+
+
         #(input, expected)
         success_tests = [
             ("# Hello", "Hello"),
             ("# This has multiple words.", "This has multiple words."),
             ("#    Leading spaces", "Leading spaces"),
             ("# Trailing spaces     ", "Trailing spaces"),
+            ("# Tolkien Fan Club\n",line_one_expected),
+            (line_one, line_one_expected)
 
         ]
         for test in success_tests:
