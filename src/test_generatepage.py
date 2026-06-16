@@ -16,7 +16,7 @@ class TestGeneratePage(unittest.TestCase):
             t = test[0]
             expected = test[1]
             actual = extract_title(t)
-            self.assertEqual(expected, actual)
+            self.assertEqual(expected, actual,f"expected: {expected}, actual: {actual}")
         
         fail_tests = [
             "#Too close",
@@ -27,5 +27,5 @@ class TestGeneratePage(unittest.TestCase):
         ]
 
         for test in fail_tests:
-            with self.assertRaises(ValueError):
+            with self.assertRaises(ValueError, msg=f"error not raised input:{test}"):
                 extract_title(test)
