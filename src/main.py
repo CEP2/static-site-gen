@@ -55,6 +55,7 @@ def main():
     template = "template.html"
 
     copy_directory()
+    # copy_directory("content","public")
     generate_page(origin,template,dest)
 
 
