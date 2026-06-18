@@ -1,5 +1,4 @@
 import os
-import re
 from markdowntohtmlnode import markdown_to_html_node
 from htmlnode import HTMLNode
 from copy import copy
@@ -49,11 +48,18 @@ def generate_pages_recursive(from_path, template_path, dest_path):
     # get list of files
     for file in os.listdir(from_path):
         # set up origin & dest files
+        from_file = os.path.join(from_path, file)
+        dest_file = os.path.join(dest_path, file)
     # if file (origin_file)
+    if os.path.isfile(from_file):
         # replace md w/html
+        dest_file.replace(".md", ".html")
         # gen page
+        generate_page(from_file, template_path, dest_file)
     # if dir (not file)
-        # gen page
+    else:
+        # gen page recursive w/folder names
+        generate_pages_recursive(from_file, template_path, dest_file)
 
     pass
 
