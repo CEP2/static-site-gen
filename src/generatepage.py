@@ -45,4 +45,16 @@ def generate_page(from_path, template_path, dest_path):
     except Exception as e:
         print(f"error generating page: {e}")
 
+def generate_pages_recursive(from_path, template_path, dest_path):
+    # get list of files
+    for file in os.listdir(from_path):
+        # set up origin & dest files
+    # if file (origin_file)
+        # replace md w/html
+        # gen page
+    # if dir (not file)
+        # gen page
+
+    pass
+
     
