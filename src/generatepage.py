@@ -11,7 +11,7 @@ def extract_title(markdown):
             return l[2:].strip()
     raise ValueError(f"no md title present {markdown}")
     
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath=None):
     print(f"attempting to generate page...\n\tsource: {from_path}\n\tdest: {dest_path}\n\ttemplate:{template_path}")
     try:
         with open(from_path,'r') as from_file:
@@ -30,6 +30,11 @@ def generate_page(from_path, template_path, dest_path):
 
                 content_target = "{{ Content }}"
                 output = output.replace(content_target, html)
+
+                if basepath:
+                    # update href & src with basepath
+                    output.replace("href=\"/",f"href=\"{basepath}")
+                    output.replace("src=\"/",f"src=\"{basepath}")
                 # output to destination
                 try:
                     #check if path exists, otherwise mkdirs
@@ -44,23 +49,22 @@ def generate_page(from_path, template_path, dest_path):
     except Exception as e:
         print(f"error generating page: {e}")
 
-def generate_pages_recursive(from_path, template_path, dest_path):
+def generate_pages_recursive(from_path, template_path, dest_path, basepath=None):
     # get list of files
     for file in os.listdir(from_path):
         # set up origin & dest files
         from_file = os.path.join(from_path, file)
         dest_file = os.path.join(dest_path, file)
-    # if file (origin_file)
-    if os.path.isfile(from_file):
-        # replace md w/html
-        dest_file.replace(".md", ".html")
-        # gen page
-        generate_page(from_file, template_path, dest_file)
-    # if dir (not file)
-    else:
-        # gen page recursive w/folder names
-        generate_pages_recursive(from_file, template_path, dest_file)
-
-    pass
+        print(f"from: {from_file}", f"dest: {dest_file}", sep='\n')
+        # if file (origin_file)
+        if os.path.isfile(from_file):
+            # replace md w/html
+            dest_file = dest_file.replace(".md", ".html")
+            # gen page
+            generate_page(from_file, template_path, dest_file)
+        # if dir (not file)
+        else:
+            # gen page recursive w/folder names
+            generate_pages_recursive(from_file, template_path, dest_file)
 
     

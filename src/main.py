@@ -1,6 +1,7 @@
 import os, shutil
+from sys import argv
 from pathlib import Path
-from generatepage import generate_page
+from generatepage import generate_page, generate_pages_recursive
 import time 
 
 #copies
@@ -51,50 +52,9 @@ def copy_contents(origin, dest):
     return
 
 def main():
+    basepath  = argv if argv else "/"
+
     copy_directory()
-
-    origin = "content/index.md"
-    dest = "public/index.html"
-    template = "template.html"
-    generate_page(origin,template,dest)
-
-    origin = "content"
-    dest = "public"
-    # template = "template.html" #same as before
-    #get content listing
-    try:
-        print(origin)
-        #check exists 
-        if not os.path.exists(origin):
-            raise ValueError(f"does not exist: {origin}")
-        if os.path.isfile(origin):
-            raise ValueError(f"not a directory")
-        # get dir contents
-        gen_list = os.listdir(origin)
-        while gen_list:
-            print(gen_list)            
-            content = gen_list[0]
-            # naming to not cross wires when reading and writing
-            origin_file = os.path.join(origin,content)
-            dest_file = os.path.join(dest, content)
-            # behavior set if file or dir
-            is_file = os.path.isfile(origin_file)
-            if is_file:
-                print("file found")
-                # generate equivalent in destination
-                new_dest_name = dest_file if not dest_file.endswith('.md') else dest_file.replace('.md', '.html')
-                generate_page(origin_file,template,new_dest_name)
-            elif not is_file:
-                print("directory found")
-                dir_contents = list(map(lambda x: os.path.join(content, x),os.listdir(origin_file)))
-                #dir_contents = [os.path.join(content, x) for x in os.listdir(origin_file)]
-                gen_list.extend(dir_contents)
-            gen_list.pop(0)
-            
-        
-    except Exception as e:
-        print(f"unexpected error: {e}")
-
-
+    generate_pages_recursive("content","template.html","public")
 
 main()
