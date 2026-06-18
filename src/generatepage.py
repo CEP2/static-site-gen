@@ -33,13 +33,12 @@ def generate_page(from_path, template_path, dest_path, basepath=None):
 
                 if basepath:
                     # update href & src with basepath
-                    output.replace("href=\"/",f"href=\"{basepath}")
-                    output.replace("src=\"/",f"src=\"{basepath}")
+                    output = output.replace("href=\"/",f"href=\"{basepath}")
+                    output = output.replace("src=\"/",f"src=\"{basepath}")
                 # output to destination
                 try:
                     #check if path exists, otherwise mkdirs
                     parent_folder, file_name = os.path.split(dest_path)
-                    print(f"target folder: {parent_folder}\n\tfile: {file_name}")
                     os.makedirs(parent_folder,exist_ok=True)
 
                     with open(dest_path, "w") as out_file:
@@ -55,16 +54,15 @@ def generate_pages_recursive(from_path, template_path, dest_path, basepath=None)
         # set up origin & dest files
         from_file = os.path.join(from_path, file)
         dest_file = os.path.join(dest_path, file)
-        print(f"from: {from_file}", f"dest: {dest_file}", sep='\n')
         # if file (origin_file)
         if os.path.isfile(from_file):
             # replace md w/html
             dest_file = dest_file.replace(".md", ".html")
             # gen page
-            generate_page(from_file, template_path, dest_file)
+            generate_page(from_file, template_path, dest_file, basepath)
         # if dir (not file)
         else:
             # gen page recursive w/folder names
-            generate_pages_recursive(from_file, template_path, dest_file)
+            generate_pages_recursive(from_file, template_path, dest_file, basepath)
 
     

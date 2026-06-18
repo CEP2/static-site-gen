@@ -17,6 +17,7 @@ def copy_directory(target="static", destination="public"):
         if os.path.isfile(dest):
             os.remove(dest)
         elif os.path.isdir(dest):
+            print(f'deleting folder: {dest}')
             shutil.rmtree(dest)
         else:
             raise ValueError(f"not a file or dir: {dest}")
@@ -34,7 +35,6 @@ def copy_contents(origin, dest):
         c_path = os.path.join(origin,c)
         print(f"file check: {c_path}")
         if os.path.isfile(c_path):
-            print(f"{c_path} is a file")
             #copy to destination
             shutil.copy(c_path, os.path.join(dest,c))
         # if directory
@@ -52,7 +52,7 @@ def copy_contents(origin, dest):
     return
 
 def main():
-    basepath  = argv if argv else "/"
+    basepath  = argv[1] if argv else "/"
     serving_folder = "docs"
 
     copy_directory("static", serving_folder)
