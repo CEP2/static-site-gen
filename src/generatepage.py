@@ -33,10 +33,15 @@ def generate_page(from_path, template_path, dest_path):
                 output = output.replace(content_target, html)
                 # output to destination
                 try:
+                    #check if path exists, otherwise mkdirs
+                    parent_folder, file_name = os.path.split(dest_path)
+                    print(f"target folder: {parent_folder}\n\tfile: {file_name}")
+                    os.makedirs(parent_folder,exist_ok=True)
+
                     with open(dest_path, "w") as out_file:
                         out_file.write(output)
                 except Exception as e:
-                    print(f"error opening {dest_path}: {e}")
+                    print(f"error writing {dest_path}: {e}")
     except Exception as e:
         print(f"error generating page: {e}")
 
