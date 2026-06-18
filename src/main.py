@@ -53,8 +53,9 @@ def copy_contents(origin, dest):
 
 def main():
     basepath  = argv if argv else "/"
+    serving_folder = "docs"
 
-    copy_directory()
-    generate_pages_recursive("content","template.html","docs", basepath) # "docs instead of public for GitHub"
+    copy_directory("static", serving_folder)
+    generate_pages_recursive("content","template.html",serving_folder, basepath) # "docs instead of public for GitHub"
 
 main()
