@@ -55,6 +55,6 @@ def main():
     basepath  = argv if argv else "/"
 
     copy_directory()
-    generate_pages_recursive("content","template.html","public")
+    generate_pages_recursive("content","template.html","docs", basepath) # "docs instead of public for GitHub"
 
 main()
